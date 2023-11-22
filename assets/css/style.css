@@ -1,0 +1,30 @@
+:root {
+    --lilac: rgb(182, 162, 181);
+    --pink: rgb(253, 236, 240);
+    --dark: rgb(168, 114, 152);
+    --light: rgb(245, 239, 233);
+    --periwinkle: rgb(243, 229, 233);
+    --white: #ffffff;
+    --script: 'League Script', 'Brush Script MT', cursive;
+    --type: 'Lora', 'Georgia', serif;
+}
+
+.customnavbar {
+    background-color: var(--lilac);
+}
+
+.hidden {
+    display: none
+}
+
+.answers {
+    display: flexbox;
+    flex-direction: row;
+}
+
+#brand {
+    font-family: var(--script);
+    font-size: 3.5rem;
+    line-height: 40%;
+    padding-top: 1rem;
+}
