@@ -1,0 +1,120 @@
+{
+    "quiz": {
+        "number": 1,
+        "name": "JavaScript",
+        "questions": 10,
+        "credits": "Quiz questions and answers from InterviewBit"
+    },
+    "questions": [
+        {
+            "number": 1,
+            "question": "Javascript is an _______ language?",
+            "answers": [
+                "Object-oriented",
+                "Object-based",
+                "Procedural",
+                "None of the above"
+            ],
+            "correct answer": 1
+        },
+        {
+            "number": 2,
+            "question": "Which of the following keywords is not used to define a variable in Javascript?",
+            "answers": [
+                "let",
+                "===",
+                "const",
+                "var"
+            ],
+            "correct_answer": 2
+        },
+        {
+            "number": 3,
+            "question": "Which of the following methods is used to access HTML elements using Javascript?",
+            "answers": [
+                "getElementById()",
+                "getElementByClassName()",
+                "Both A and B",
+                "None of the above"
+            ],
+            "correct_answer": 3
+        },
+        {
+            "number": 4,
+            "question": "Upon encountering empty statements, what does the Javascript Interpreter do?",
+            "answers": [
+                "Throws an error",
+                "Ignores the statements",
+                "Gives a warning",
+                "None of the above"
+            ],
+            "correct_answer": 2
+        },
+        {
+            "number": 5,
+            "question": "Which of the following methods can be used to display data in some form using Javascript?",
+            "answers": [
+                "document.write()",
+                "console.log()",
+                "window.alert()",
+                "All of the above"
+            ],
+            "correct_answer": 4
+        },
+        {
+            "number": 6,
+            "question": "How can a datatype be declared to be a constant type?",
+            "answers": [
+                "const",
+                "let",
+                "var",
+                "constant"
+            ],
+            "correct_answer": 1
+        },
+        {
+            "number": 7,
+            "question": "What keyword is used to check whether a given property is valid or not?",
+            "answers": [
+                "in",
+                "isIn",
+                "exists",
+                "lies"
+            ],
+            "correct_answer": 1
+        },
+        {
+            "number": 8,
+            "question": "What is the use of the 'noscript' tag in Javascript?",
+            "answers": [
+                "The contents are displayed by non-JS-based browsers.",
+                "Clears all the cookies and cache.",
+                "Allows you to comment inside the tags.",
+                "None of the above"
+            ],
+            "correct_answer": 1
+        },
+        {
+            "number": 9,
+            "question": "When an operator's value is NULL, the typeof returned by the unary operator is:",
+            "answers": [
+                "Boolean",
+                "undefined",
+                "object",
+                "integer"
+            ],
+            "correct_answer": 3
+        },
+        {
+            "number": 10,
+            "question": "What does the Javascript 'debugger' statement do?",
+            "answers": [
+                "It will debug all the errors in the program at runtime.",
+                "It acts as a breakpoint in the program.",
+                "It will debug error in the current statement if any.",
+                "All of the above"
+            ],
+            "correct_answer": 2
+        }
+    ]
+}
