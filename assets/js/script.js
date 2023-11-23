@@ -25,17 +25,33 @@ function clearScores() {
 
 }
 
-// function startQuiz() {
-let question = {};
-function welcomePage() {
+function startQuiz() {
+let welcome = document.getElementById('#welcome');
+livePage(welcome);
+countdown();
+}
+
+function livePage(x) {
+    x.classList.add("hidden");
+    let next = x.nextSibling;
+    next.classList.remove("hidden");
+}
+
+function nextQuestion() {
 
 }
-// function submitAnswer() {
 
+// add "" to ul class
 function createHighscores() {
-    let scoreList = document.createElement('ol');
+    let scoreList = document.createElement('ul');
+    scoreList.className = "list-group list-group-flush list-group-numbered";
     let scores = document.createElement('li');
     let scoresText = document.createTextNode('21');
+    let initialsEl = document.getElementById('#initials');
+    initialsEl.value = localStorage.getItem('#initials')
+    initialsEl.addEventListener('input', function () {
+        localStorage.setItem('#initials', initialsEl.value);
+    })
     let scoreBoard = document.getElementById('#highscores');
     scores.appendChild(scoresText);
     scoreList.appendChild(scores);
