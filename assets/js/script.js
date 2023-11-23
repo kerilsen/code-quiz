@@ -1,3 +1,14 @@
+function importData() {
+    fetch("assets/js/javascriptQuiz.json")
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => console.log(data));
+}
+importData();
+// const input = JSON.parse(
+
+// console.log("input is " + input);
 let timerEl = document.getElementById('countdown');
 let welcomeCard = document.getElementById('welcome');
 let quizCard = document.getElementById('quiz');
@@ -19,22 +30,28 @@ function countdown() {
             endGame();
         }
     }, 1000);
+    return;
 }
 
+// ul or li or both?
 function clearScores() {
+    let scores = document.createElement('ul');
+    scores.value = "";
 
 }
 
 function startQuiz() {
-let welcome = document.getElementById('#welcome');
-livePage(welcome);
-countdown();
+    let cards = document.querySelectorAll(div.card);
+    livePage(cards[0]);
+    countdown();
+    return;
 }
 
 function livePage(x) {
     x.classList.add("hidden");
     let next = x.nextSibling;
     next.classList.remove("hidden");
+    return;
 }
 
 function nextQuestion() {
@@ -45,12 +62,16 @@ function nextQuestion() {
 function createHighscores() {
     let scoreList = document.createElement('ul');
     scoreList.className = "list-group list-group-flush list-group-numbered";
+    console.log("scoreList = " + scoreList);
     let scores = document.createElement('li');
+    console.log("scores = " + scores);
     let scoresText = document.createTextNode('21');
+    console.log("scoresText = " + scoresText);
     let initialsEl = document.getElementById('#initials');
-    initialsEl.value = localStorage.getItem('#initials')
+    initialsEl.value = localStorage.getItem('#initials');
     initialsEl.addEventListener('input', function () {
         localStorage.setItem('#initials', initialsEl.value);
+        console.log("initialsEl.value = " + initialsEl.value);
     })
     let scoreBoard = document.getElementById('#highscores');
     scores.appendChild(scoresText);
