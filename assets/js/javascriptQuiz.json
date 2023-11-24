@@ -1,10 +1,4 @@
 {
-    "quiz": {
-        "number": 1,
-        "name": "JavaScript",
-        "questions": 10,
-        "credits": "Quiz questions and answers from InterviewBit"
-    },
     "questions": [
         {
             "number": 1,
@@ -15,7 +9,7 @@
                 "Procedural",
                 "None of the above"
             ],
-            "correct answer": 1
+            "correct_answer": 1
         },
         {
             "number": 2,
