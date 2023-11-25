@@ -16,7 +16,7 @@ let quizObject = {};
 
 function createCard() {
     let card = document.getElementById(quiz);
-l
+    
 }
 /*for (var i=0; i < responseObject.events.length; i++) {
     let quizObject.number[i]
@@ -44,7 +44,7 @@ let timerEl = document.getElementById('countdown');
 let welcomeCard = document.getElementById('welcome');
 // let quiz Card = document.getElementById('quiz');
 let resultsCard = document.getElementById('results');
-
+addEventListener
 function countdown() {
     let timeLeft = 90;
     let timeInterval = setInterval(function () {
@@ -61,7 +61,6 @@ function countdown() {
             endGame();
         }
     }, 1000);
-    return;
 }
 
 // ul or li or both?
@@ -72,10 +71,9 @@ function clearScores() {
 }
 
 function startQuiz() {
-    let cards = Array.from(document.querySelectorAll(div.card));
-    livePage(cards[0]);
+    // let cards = Array.from(document.querySelectorAll(div.card));
+    // livePage(cards[0]);
     countdown();
-    return;
 }
 
 function cardObject() {
@@ -89,7 +87,6 @@ function livePage(x) {
     x.classList.add("hidden");
     let next = x.nextSibling;
     next.classList.remove("hidden");
-    return;
 }
 
 // Event listener function from Web Dev Simplified "Learn JavaScript Event Listeners in 18 Minutes"
@@ -140,6 +137,5 @@ function createHighscores() {
     scoreList.appendChild(scores);
     scoreBoard.appendChild(scoreList);
     console.dir(scoreBoard);
-    return;
 }
 createHighscores();
