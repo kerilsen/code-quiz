@@ -36,43 +36,36 @@
             </div>
         </nav>
     </header>
-    <div class="card text-center" id="welcome">
-        <h1 id="title">JavaScript Quiz Challenge</h1>
-        <div class="content" id="instructions">
-            <p>Try to answer the following code-related questions within the time limit.
-                Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
-            <button type="button" id="start" class="btn btn-light customBtn" onclick="startQuiz()">Start Quiz</button>
-        </div>
-    </div>
 
-    <div class="card text-center hidden" id="quiz">
+    <div class="card w-80 text-center" id="quiz">
         <div class="card-header">
-            Coding Quiz Challenge
+            <h1>Coding Quiz Challenge</h1>
         </div>
         <div class="card-body">
-            <h5 class="card-title" id="question">Which of these would you not use to declare a variable?</h5>
-            <div class="list-group">
-                <a href="#" id="1" class="list-group-item list-group-item-action">var</a>
-                <a href="#" id="2" class="list-group-item list-group-item-action">===</a>
-                <a href="#" id="3" class="list-group-item list-group-item-action">let</a>
-                <a href="#" id="4" class="list-group-item list-group-item-action">const</a>
+            <h5 class="card-title" id="question">Try to answer the following code-related questions within the time
+                limit.
+                Keep in mind that incorrect answers will penalize your score/time by ten seconds!</h5>
+            <div class="list-group hidden" id="hideme">
+                <a href="#" id="1" class="list-group-item list-group-item-action"></a>
+                <a href="#" id="2" class="list-group-item list-group-item-action"></a>
+                <a href="#" id="3" class="list-group-item list-group-item-action"></a>
+                <a href="#" id="4" class="list-group-item list-group-item-action"></a>
             </div>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <a href="#" class="btn btn-primary" id="clickHere">Start Quiz</a>
         </div>
-        <div class="card-footer text-body-secondary" id="feedback">
-            Wrong!
+        <div class="card-footer text-body-secondary">
+            <span id="feedback"></span>
         </div>
     </div>
 
-    <div class="card text-center hidden" id="results">
+    <div class="card w-80 text-center hidden" id="results">
         <h2 class="completed">All done!</h2>
         <div class="content" id="submitScore">
             <p>Your final score is: <span id="score"></span></p>
             <p>Enter initials: <input id="initials" type="text" /></p>
         </div>
     </div>
-    <div class="card text-center" id="highscores">
+    <div class="card text-center hidden" id="highscores">
         <h2 class="scoreboard">Highscores</h2>
         <!-- dynamically generated ol <ol><li></li></ol> -->
         <div class="content" id="goodbye">
