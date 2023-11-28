@@ -67,30 +67,29 @@ function countdown() {
 let quizObject = {};
 let clicker = 0;
 let clickHere = document.getElementById('clickHere');
+let listEl = document.getElementById('hideme');
 
 clickHere.addEventListener("click", function () {
     countdown();
-    clicker = 0;
+    clicker++;
     clickHere.textContent = "Submit";
+    listEl.classList.remove("hidden");
     let questionEl = document.getElementById('question');
-    questionEl.textContent = "What should we do today?"
-    console.log("Question test is: " + questionEl.textContent);
     let answer1 = document.getElementById('1');
     let answer2 = document.getElementById('2');
     let answer3 = document.getElementById('3');
     let answer4 = document.getElementById('4');
-    while (clicker < responseObject.questions.length + 1) {
-        questionEl.textContent = responseObject.questions[clicker].question;
+    if (clicker < responseObject.questions.length + 1) {
+        questionEl.textContent = responseObject.questions[clicker - 1].question;
         console.log("Question 1: " + questionEl.textContent);
-        answer1.textContent = responseObject.questions[clicker].answers[0];
+        answer1.textContent = responseObject.questions[clicker - 1].answers[0];
         console.log("Answer 1: " + answer1.textContent);
-        answer2.textContent = responseObject.questions[clicker].answers[1];
+        answer2.textContent = responseObject.questions[clicker - 1].answers[1];
         console.log("Answer 2: " + answer2.textContent);
-        answer3.textContent = responseObject.questions[clicker].answers[2];
+        answer3.textContent = responseObject.questions[clicker - 1].answers[2];
         console.log("Answer 3: " + answer3.textContent);
-        answer4.textContent = responseObject.questions[clicker].answers[3];
+        answer4.textContent = responseObject.questions[clicker - 1].answers[3];
         console.log("Answer 4: " + answer4.textContent);
-        clicker++;
     }
 });
 
