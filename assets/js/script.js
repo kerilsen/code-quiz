@@ -15,19 +15,7 @@ xhr.onload = function () {
     }
 }
 importData();
-// console.log(responseObject.length);
-// how to access array from object
 
-// Event listener function from Web Dev Simplified "Learn JavaScript Event Listeners in 18 Minutes"
-function addGlobalEventListener(type, selector, callback) {
-    document.addEventListener(type, e => {
-        if (e.target.matches(selector)) callback(e);
-    })
-}
-
-addGlobalEventListener("click", "div", e => {
-    console.log("hi")
-})
 let timerEl = document.getElementById('countdown');
 
 function countdown() {
@@ -61,7 +49,6 @@ function countdown() {
             endGame();
         }
     }, 1000);
-
 }
 
 let quizObject = {};
@@ -69,16 +56,40 @@ let clicker = 0;
 let clickHere = document.getElementById('clickHere');
 let listEl = document.getElementById('hideme');
 
+// Helper function to clear input from https://toolsnull.com/code-solution/how-to-clear-all-radio-buttons-in-one-click-using-javascript
+function clearInput() {
+    let buttons = document.querySelectorAll("input[type=radio]");
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].checked = false;
+    }
+}
+
+function checkAnswer(x, y) {
+    if (x === y) { return true; }
+    else { return false; }
+}
+
 clickHere.addEventListener("click", function () {
-    countdown();
-    clicker++;
     clickHere.textContent = "Submit";
     listEl.classList.remove("hidden");
+    countdown();
+    console.log("Hello this is the first event listener");
+},
+    { once: true }
+);
+
+clickHere.addEventListener("click", function () {
+    clicker++;
+    // clearInput();
+    console.log("the clicker is set at " + clicker);
+    console.log("Hello this is the second event listener");
     let questionEl = document.getElementById('question');
     let answer1 = document.getElementById('1');
     let answer2 = document.getElementById('2');
     let answer3 = document.getElementById('3');
     let answer4 = document.getElementById('4');
+    let feedbackEl = document.getElementById('feedback');
+    console.log(responseObject.questions.length);
     if (clicker < responseObject.questions.length + 1) {
         questionEl.textContent = responseObject.questions[clicker - 1].question;
         console.log("Question 1: " + questionEl.textContent);
@@ -91,6 +102,12 @@ clickHere.addEventListener("click", function () {
         answer4.textContent = responseObject.questions[clicker - 1].answers[3];
         console.log("Answer 4: " + answer4.textContent);
     }
+    /* if (clicker > 1 && clicker < responseObject.questions.length + 1)*/
+    console.log("Answer 1.checked is " + check1.checked);
+    console.log("Answer 2.checked is " + check2.checked);
+    console.log("Answer 3.checked is " + check3.checked);
+    console.log("Answer 4.checked is " + check4.checked);
+    console.log("Correct answer is " + responseObject.questions[clicker - 1].correct_answer);
 });
 
 xhr.open('GET', 'assets/js/javascriptQuiz.json', true);
@@ -117,7 +134,6 @@ function createHighscores() {
     console.dir(scoresText);
     console.log("scoresText = " + scoresText);
     let initials = document.createElement('input');
-
     /*let initialsEl = document.getElementById('#initials');
     initialsEl.value = localStorage.getItem('#initials');
     initialsEl.addEventListener('input', function () {
