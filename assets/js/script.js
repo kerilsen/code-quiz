@@ -66,9 +66,20 @@ function clearInput() {
     }
 }
 
+function sortDescending(x) {
+    for (let i = 0; i < x.length; i++) {
+        if (x[i] < x[i + 1]) {
+            let y = x[i];
+            x[i] = x[i + 1];
+            x[i + 1] = y;
+        }
+    }
+}
+
 function getHighscores() {
     let x = localStorage.getItem("initials");
-    let y = localStorage.getItem("score");
+    // parse by using space delimiter
+    // sort by integer value
     // retrieve and return as object array? no - only strings
 }
 function checkAnswer(x, y) {
@@ -131,16 +142,17 @@ clickHere.addEventListener("click", function () {
         console.log("Answer 4: " + answer4.textContent);
         // let inputAnswer = localStorage.setItem("lastAnswer",)
     }
-    if (clicker > 1 && clicker < responseObject.questions.length + 1) {
+    if (clicker > 1 && clicker < responseObject.questions.length) {
         let answers = [check1.checked, check2.checked, check3.checked, check4.checked];
         console.log("answers array is " + answers);
         let correct = document.getElementById('correct');
         let wrong = document.getElementById('wrong');
+        var x = document.getElementById("hideme").value;
         let correctAnswer = responseObject.questions[clicker - 2].correct_answer;
         console.log("correctAnswer is " + correctAnswer);
         console.log("the corresponding item in answers array is " + answers[correctAnswer - 1]);
-        console.log("correctAnswer === answers[correctAnswer - 1] is " + correctAnswer === answers[correctAnswer - 1]);
-        if (answers[correctAnswer - 1]) {
+        console.log("correctAnswer === answers[correctAnswer - 1] is " + correctAnswer === x);
+        if (correctAnswer === x) {
             show(correct);
             hide(wrong);
         }
@@ -161,6 +173,8 @@ xhr.send(null);
 function clearScores() {
     let scores = document.createElement('ul');
     scores.value = "";
+    //clear local storage values
+    clear();
 }
 
 // add "" to ul class
@@ -183,6 +197,9 @@ function createHighscores() {
     initialsEl.addEventListener('input', function () {
         localStorage.setItem('#initials', initialsEl.value);
         console.log("initialsEl.value = " + initialsEl.value);})*/
+    // Save initials and score as a concatenated string value that is parsed by spaces " "
+    // Put rounded outline around each high score
+    // able to sort?? high score at top descending
 
     // let scoreBoard = document.getElementById('highscores');
     // console.dir(scoreBoard);
