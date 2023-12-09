@@ -7,6 +7,7 @@
     --white: #ffffff;
     --script: 'League Script', 'Brush Script MT', cursive;
     --type: 'Lora', 'Georgia', serif;
+    --stylized: 'Montserrat', sans-serif;
 }
 
 .customnavbar  {
@@ -14,12 +15,19 @@
 }
 
 .hidden {
-    display: none
+    display: none;
 }
 
-.answers {
-    display: flexbox;
-    flex-direction: row;
+h2 {
+    color: white;
+    background-color:rgb(168, 114, 152);
+    border-radius: 50%;
+    margin: auto;
+    width: 120px;
+    height: 120px;
+    font-size: 50px;
+    padding: 25px 50px;
+    font-family: var(--stylized);
 }
 
 #brand {

@@ -16,76 +16,22 @@ xhr.onload = function () {
 }
 importData();
 
+xhr.open('GET', 'assets/js/javascriptQuiz.json', true);
+xhr.send(null);
+
 let timerEl = document.getElementById('countdown');
+let time = document.getElementById('time');
 let timeLeft;
-
-function countdown() {
-    timeLeft = 180;
-    let timeInterval = setInterval(function () {
-        if (timeLeft > 119) {
-            timerEl.textContent = Math.floor(timeLeft / 60) + " minutes and " + timeLeft % 60 + " seconds remaining";
-            timeLeft--;
-        }
-        else if (timeLeft > 59 && timeLeft < 120) {
-            timerEl.textContent = Math.floor(timeLeft / 60) + " minute and " + timeLeft % 60 + " seconds remaining"
-            timeLeft--;
-        }
-        else if (timeLeft < 60 && timeLeft > 10) {
-            timerEl.classList.add(warning);
-            timerEl.textContent = timeLeft + " seconds remaining";
-            timeLeft--;
-        }
-        else if (timeLeft < 11 && timeLeft > 1) {
-            timerEl.classList.remove(warning);
-            timerEl.classList.add(danger);
-            timerEl.textContent = timeLeft + " seconds remaining";
-            timeLeft--;
-        }
-        else if (timeLeft === 1) {
-            timerEl.textContent = timeLeft + " second remaining";
-            timeLeft--;
-        }
-        else {
-            timerEl.textContent = '';
-            clearInterval(timeInterval);
-            endGame();
-        }
-    }, 1000);
-}
-
 let quizObject = {};
 let clicker = 0;
 let clickHere = document.getElementById('clickHere');
-let listEl = document.getElementById('hideme');
-
-// Helper function to clear input from https://toolsnull.com/code-solution/how-to-clear-all-radio-buttons-in-one-click-using-javascript
-function clearInput() {
-    let buttons = document.querySelectorAll("input[type=radio]");
-    for (let i = 0; i < buttons.length; i++) {
-        buttons[i].checked = false;
-    }
-}
-
-function sortDescending(x) {
-    for (let i = 0; i < x.length; i++) {
-        if (x[i] < x[i + 1]) {
-            let y = x[i];
-            x[i] = x[i + 1];
-            x[i + 1] = y;
-        }
-    }
-}
-
-function getHighscores() {
-    let x = localStorage.getItem("initials");
-    // parse by using space delimiter
-    // sort by integer value
-    // retrieve and return as object array? no - only strings
-}
-function checkAnswer(x, y) {
-    if (x === y) { return true; }
-    else { return false; }
-}
+let enterScore = document.getElementById('enterScore');
+let listEl = document.getElementById('answerList');
+let scoreEl = document.getElementById('score');
+let numberEl = document.getElementById('number');
+let tally = 0;
+let tallyEl = document.getElementById('tally');
+let line = document.getElementById('line');
 
 function hide(x) {
     if (x.classList.contains("hidden"))
@@ -100,36 +46,73 @@ function show(x) {
     return;
 }
 
+function results(x) {
+    scoreEl.textContent = x;
+    show(tallyEl);
+    tallyEl.textContent = tally;
+    show(line);
+    hide(time);
+    let quiz = document.getElementById('quiz');
+    hide(quiz);
+    let results = document.getElementById('results');
+    show(results);
+}
+
+function countdown() {
+    timeLeft = 150;
+    let timeInterval = setInterval(function () {
+        if (timeLeft > 119) {
+            timerEl.textContent = Math.floor(timeLeft / 60) + " minutes and " + timeLeft % 60 + " seconds remaining";
+            timeLeft--;
+        }
+        else if (timeLeft > 59 && timeLeft < 120) {
+            timerEl.textContent = Math.floor(timeLeft / 60) + " minute and " + timeLeft % 60 + " seconds remaining"
+            timeLeft--;
+        }
+        else if (timeLeft < 60 && timeLeft > 10) {
+            timerEl.textContent = timeLeft + " seconds remaining";
+            timeLeft--;
+        }
+        else if (timeLeft < 11 && timeLeft > 1) {
+            timerEl.textContent = timeLeft + " seconds remaining";
+            timeLeft--;
+        }
+        else if (timeLeft === 1) {
+            timerEl.textContent = timeLeft + " second remaining";
+            timeLeft--;
+        }
+        else {
+            timerEl.textContent = '';
+            clearInterval(timeInterval);
+            results(timeLeft);
+        }
+    }, 1000);
+}
+
 clickHere.addEventListener("click", function () {
     clickHere.textContent = "Submit";
-    listEl.classList.remove("hidden");
+    show(time);
+    show(answerList);
     countdown();
-    console.log("Hello this is the first event listener");
+    console.log("Hello this is the first event listener that runs only once");
 },
     { once: true }
 );
-var rightAnswer;
 
 clickHere.addEventListener("click", function () {
     clicker++;
-    // clearInput();
-    /*let check1 = document.getElementById('check1');
-    let check2 = document.getElementById('check2');
-    let check3 = document.getElementById('check3');
-    let check4 = document.getElementById('check4');*/
-    rightAnswer = "check" + responseObject.questions[clicker].correct_answer;
-    console.log("The right answer is check" + responseObject.questions[clicker].correct_answer + " and it was " + rightAnswer.checked + " on the last question.")
-    // checkAnswer(rightAnswer.checked);
-    console.log("the clicker is set at " + clicker);
+    console.log("The clicker is set at " + clicker);
     console.log("Hello this is the second event listener");
     let questionEl = document.getElementById('question');
     let answer1 = document.getElementById('1');
     let answer2 = document.getElementById('2');
     let answer3 = document.getElementById('3');
     let answer4 = document.getElementById('4');
-    let feedbackEl = document.getElementById('feedback');
     console.log(responseObject.questions.length);
+
     if (clicker < responseObject.questions.length + 1) {
+        show(numberEl);
+        numberEl.textContent = responseObject.questions[clicker - 1].number;
         questionEl.textContent = responseObject.questions[clicker - 1].question;
         console.log("Question 1: " + questionEl.textContent);
         answer1.textContent = responseObject.questions[clicker - 1].answers[0];
@@ -140,36 +123,35 @@ clickHere.addEventListener("click", function () {
         console.log("Answer 3: " + answer3.textContent);
         answer4.textContent = responseObject.questions[clicker - 1].answers[3];
         console.log("Answer 4: " + answer4.textContent);
-        // let inputAnswer = localStorage.setItem("lastAnswer",)
     }
-    if (clicker > 1 && clicker < responseObject.questions.length) {
+
+    if (clicker > 1 && clicker <= responseObject.questions.length) {
         let answers = [check1.checked, check2.checked, check3.checked, check4.checked];
-        console.log("answers array is " + answers);
+        console.log("Array of user input is " + answers);
         let correct = document.getElementById('correct');
         let wrong = document.getElementById('wrong');
-        var x = document.getElementById("hideme").value;
         let correctAnswer = responseObject.questions[clicker - 2].correct_answer;
-        console.log("correctAnswer is " + correctAnswer);
-        console.log("the corresponding item in answers array is " + answers[correctAnswer - 1]);
-        console.log("correctAnswer === answers[correctAnswer - 1] is " + correctAnswer === x);
-        if (correctAnswer === x) {
+        console.log("The correct answer is " + correctAnswer);
+        console.log("The corresponding answer from user input is " + answers[correctAnswer - 1]);
+        // if the answer index
+        if (answers[correctAnswer - 1]) {
             show(correct);
             hide(wrong);
+            tally++;
         }
         else {
             show(wrong);
             hide(correct);
+            // deduct 10 seconds from timer for wrong answer
             timeLeft = timeLeft - 10;
         }
     }
+    if (clicker === responseObject.questions.length + 1) {
+        results(timeLeft);
+    }
 });
 
-// check for input, compare to answer key and display message
-
-xhr.open('GET', 'assets/js/javascriptQuiz.json', true);
-xhr.send(null);
-
-// ul or li or both?
+//not functional yet
 function clearScores() {
     let scores = document.createElement('ul');
     scores.value = "";
@@ -177,37 +159,42 @@ function clearScores() {
     clear();
 }
 
-// add "" to ul class
-function createHighscores() {
-    let scoreBoard = document.getElementById('highscores');
-    console.dir(scoreBoard);
-    let scoreList = document.createElement('ul');
-    console.dir(scoreList);
-    scoreList.className = "list-group list-group-flush list-group-numbered";
-    console.log("scoreList = " + scoreList);
-    let scores = document.createElement('li');
-    console.dir(scores);
-    console.log("scores = " + scores);
-    let scoresText = document.createTextNode('21');
-    console.dir(scoresText);
-    console.log("scoresText = " + scoresText);
-    let initials = document.createElement('input');
-    /*let initialsEl = document.getElementById('#initials');
-    initialsEl.value = localStorage.getItem('#initials');
-    initialsEl.addEventListener('input', function () {
-        localStorage.setItem('#initials', initialsEl.value);
-        console.log("initialsEl.value = " + initialsEl.value);})*/
-    // Save initials and score as a concatenated string value that is parsed by spaces " "
-    // Put rounded outline around each high score
-    // able to sort?? high score at top descending
+let initialsInput = document.querySelector("#initials");
 
-    // let scoreBoard = document.getElementById('highscores');
-    // console.dir(scoreBoard);
-    scores.appendChild(scoresText);
-    scoreList.appendChild(scores);
+function createHighscores() {
+    let storedScores = JSON.parse(localStorage.getItem(scores));
+    /* if (storedScores !== null) {
+        scores = storedScores;
+    }*/
+    console.log("The scores object array is " + storedScores);
+    let scoreBoard = document.getElementById('highscores');
+    let scoreList = document.createElement('ul');
+    scoreList.className = "list-group list-group-flush list-group-numbered";
     scoreBoard.appendChild(scoreList);
-    console.dir(scoreBoard);
-    return;
+    show(scoreBoard);
+
+    for (let i = 0; i < storedScores.length; i++) {
+        let score = storedScores[i].score;
+        let initials = storedScores[i].initials;
+        let listItem = document.createElement('li');
+        listItem.textContent = initials + " " + score;
+        listItem.setAttribute("data-index", i);
+        scoreList.appendChild(li);
+    }
 }
 
-createHighscores();
+enterScore.addEventListener("click", function (event) {
+    event.preventDefault();
+    let scores = {
+        initials: initialsInput.value.trim(),
+        score: scoreEl.textContent.trim()
+    };
+    // send current score to local storage 
+    localStorage.setItem("scores", JSON.stringify(scores));
+    createHighscores(scores);
+});
+
+
+
+
+
