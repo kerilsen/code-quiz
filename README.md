@@ -2,13 +2,9 @@
 
 ## Description
 
-This is a timed quiz on JavaScript fundamentals that stores high scores. 
+This is a timed quiz on JavaScript fundamentals that stores high scores. The user is given a time limit to complete the quiz and each wrong answer gives a time penalty. The final score is determined by the time left on the clock when you finish. It pulls questions and answers from a JSON file so that it can potentially be customized for different subjects, skill levels or length. 
 
-One challenge I faced was getting the formatting of the JSON file right and figuring out how to load and parse it. I'm eager to learn more advanced database 
-
-This is a simple password generator that offers the user the ability to set parameters for the password including its length and character types (lowercase letters, uppercase letters, special characters and/or numbers). It helps the user quickly come up with a random computer generated password to combat the security concerns that come with less complex passwords.
-
-One challenge I faced is the password criteria of having at least one character from each required parameter (for instance if you needed an 8 character password with only uppercase, lowercase and numbers and randomly generated a password with no numbers). I solved it by "seeding" my password with one character from each character sets then shuffling it to randomize.
+One challenge I faced was getting the formatting of the JSON file right and figuring out how to load and parse it. I'm eager to learn more advanced database applications. An improvement I would like to make is a more sophisticated scoring algorithm that takes the number of correct answers into account as well as the time remaining. If someone is slow to answer all questions correctly, they could potentially end up with the same score as someone who very quickly gets all or mostly wrong answers.
 
 ## Installation
 
@@ -18,20 +14,27 @@ N/A
 
 Live URL: (https://kerilsen.github.io/code-quiz)
 
-Load the page and click on the "Generate Password" button. You will be prompted to enter the number of characters you want (between 8 and 128) and which parameters you would like to select (uppercase letters, lowercase letters, special characters and/or numbers).
+Load the page and click on the "Start Quiz" button.
 
-![Screenshot of prompt for lowercase letters](assets/images/screenshot_lowercase-prompt.png)
+![Screenshot of landing page](./assets/images/screenshot_landing-page.png)
 
-Press 'OK' to include the parameters you want to include or 'Cancel' to skip. (Please note that you must select at least one parameter).
+ You will be guided through a series of questions in which you must select an answer and hit "Submit" to continue to the next. You will be shown a message that gives you feedback on your answer after you hit 
+"Submit". 
 
-A password will be generated back to the password text box. If you would like to generate another, click the "Generate Password" button again to make your specifications.
+![Screenshot of quiz question](./assets/images/screenshot_quiz-question.png)
 
-![Screenshot of generated password](assets/images/screenshot_generated-password.png)
+At the end of the game, you are given your score (which is the remainder of the time left when you finished - including any penalties) and the number of questions you got right (which has no impact on your score).
+
+![Screenshot of results page](assets/images/screenshot_results.png)
+
+Finally, you are given the option to submit your initials to the high score list. The high scores are stored in local storage and dynamically added for display to the user.
+
+![Screenshot of highscores list](assets/images/screenshot_highscores-list.png)
 
 
 ## Credits
 
-![How to shuffle characters of a string in JavaScript](https://www.codespeedy.com/shuffle-characters-of-a-string-in-javascript/)
+N/A
 
 ## License
 
