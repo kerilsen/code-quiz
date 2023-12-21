@@ -7,6 +7,7 @@ function importData() {
         })
         .then((data) => console.log(data));
 }
+
 // Loading JSON with AJAX from Javascript & JQuery by Jon Duckett
 var xhr = new XMLHttpRequest();
 xhr.onload = function () {
@@ -14,23 +15,20 @@ xhr.onload = function () {
         responseObject = JSON.parse(xhr.responseText);
     }
 }
-importData();
+
+// importData();
 
 xhr.open('GET', 'assets/js/javascriptQuiz.json', true);
 xhr.send(null);
 
-let timerEl = document.getElementById('countdown');
 let time = document.getElementById('time');
 let timeLeft;
-let quizObject = {};
 let clicker = 0;
-let clickHere = document.getElementById('clickHere');
-let enterScore = document.getElementById('enterScore');
-let listEl = document.getElementById('answerList');
+
 let scoreEl = document.getElementById('score');
-let numberEl = document.getElementById('number');
+
 let tally = 0;
-let tallyEl = document.getElementById('tally');
+
 let line = document.getElementById('line');
 
 function hide(x) {
@@ -48,6 +46,7 @@ function show(x) {
 
 function results(x) {
     scoreEl.textContent = x;
+    let tallyEl = document.getElementById('tally');
     show(tallyEl);
     tallyEl.textContent = tally;
     show(line);
@@ -60,6 +59,7 @@ function results(x) {
 
 function countdown() {
     timeLeft = 150;
+    let timerEl = document.getElementById('countdown');
     let timeInterval = setInterval(function () {
         if (timeLeft > 119) {
             timerEl.textContent = Math.floor(timeLeft / 60) + " minutes and " + timeLeft % 60 + " seconds remaining";
@@ -89,6 +89,9 @@ function countdown() {
     }, 1000);
 }
 
+let clickHere = document.getElementById('clickHere');
+
+// This is the first button click that starts the timer and the quiz
 clickHere.addEventListener("click", function () {
     clickHere.textContent = "Submit";
     show(time);
@@ -99,6 +102,7 @@ clickHere.addEventListener("click", function () {
     { once: true }
 );
 
+// This is the second event listener for the same button that starts counting "clicks" and
 clickHere.addEventListener("click", function () {
     clicker++;
     console.log("The clicker is set at " + clicker);
@@ -111,6 +115,7 @@ clickHere.addEventListener("click", function () {
     console.log(responseObject.questions.length);
 
     if (clicker < responseObject.questions.length + 1) {
+        let numberEl = document.getElementById('number');
         show(numberEl);
         numberEl.textContent = responseObject.questions[clicker - 1].number;
         questionEl.textContent = responseObject.questions[clicker - 1].question;
@@ -125,7 +130,7 @@ clickHere.addEventListener("click", function () {
         console.log("Answer 4: " + answer4.textContent);
     }
 
-    if (clicker > 1 && clicker <= responseObject.questions.length) {
+    if (clicker > 1 && clicker <= responseObject.questions.length + 1) {
         let answers = [check1.checked, check2.checked, check3.checked, check4.checked];
         console.log("Array of user input is " + answers);
         let correct = document.getElementById('correct');
@@ -145,56 +150,58 @@ clickHere.addEventListener("click", function () {
             // deduct 10 seconds from timer for wrong answer
             timeLeft = timeLeft - 10;
         }
-    }
-    if (clicker === responseObject.questions.length + 1) {
-        results(timeLeft);
+        if (clicker === responseObject.questions.length + 1) {
+            results(timeLeft);
+        }
     }
 });
 
-//not functional yet
+//not called on yet
 function clearScores() {
-    let scores = document.createElement('ul');
-    scores.value = "";
-    //clear local storage values
-    clear();
+    localStorage.clear();
 }
 
 let initialsInput = document.querySelector("#initials");
 
 function createHighscores() {
+    // create an object for the current score
+    const scores = {
+        initials: initialsInput.value.trim(),
+        score: scoreEl.textContent.trim()
+    };
+
+    // pull any scores out of local storage if they are stored there
     let storedScores = JSON.parse(localStorage.getItem(scores));
-    /* if (storedScores !== null) {
+
+    // if there are no scores in local storage, let the current score be known as storedScores
+    if (storedScores !== null) {
         scores = storedScores;
-    }*/
+    }
+    //append current score to storedScores
+    else { storedScores.push(scores) };
+
     console.log("The scores object array is " + storedScores);
     let scoreBoard = document.getElementById('highscores');
-    let scoreList = document.createElement('ul');
-    scoreList.className = "list-group list-group-flush list-group-numbered";
-    scoreBoard.appendChild(scoreList);
     show(scoreBoard);
+    let scoreList = document.getElementById('scoreList');
+    let n = storedScores.length;
+    console.log("the stored scores object array length is " + n);
 
-    for (let i = 0; i < storedScores.length; i++) {
+    for (let i = 0; i < n; i++) {
         let score = storedScores[i].score;
         let initials = storedScores[i].initials;
         let listItem = document.createElement('li');
         listItem.textContent = initials + " " + score;
-        listItem.setAttribute("data-index", i);
-        scoreList.appendChild(li);
+        // listItem.setAttribute("data-index", i);
+        scoreList.appendChild(listItem);
     }
+
+    // send all scores to local storage 
+    localStorage.setItem("scores", JSON.stringify(storedScores));
 }
 
+let enterScore = document.getElementById('enterScore');
 enterScore.addEventListener("click", function (event) {
     event.preventDefault();
-    let scores = {
-        initials: initialsInput.value.trim(),
-        score: scoreEl.textContent.trim()
-    };
-    // send current score to local storage 
-    localStorage.setItem("scores", JSON.stringify(scores));
-    createHighscores(scores);
+    createHighscores();
 });
-
-
-
-
-
