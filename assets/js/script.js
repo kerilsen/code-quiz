@@ -1,13 +1,5 @@
 let responseObject = {};
 
-function importData() {
-    fetch("assets/js/javascriptQuiz.json")
-        .then((res) => {
-            return res.json();
-        })
-        .then((data) => console.log(data));
-}
-
 // Loading JSON with AJAX from Javascript & JQuery by Jon Duckett
 var xhr = new XMLHttpRequest();
 xhr.onload = function () {
@@ -15,8 +7,6 @@ xhr.onload = function () {
         responseObject = JSON.parse(xhr.responseText);
     }
 }
-
-// importData();
 
 xhr.open('GET', 'assets/js/javascriptQuiz.json', true);
 xhr.send(null);
@@ -37,6 +27,8 @@ function hide(x) {
     else (x.classList.add("hidden"));
 }
 
+let newresults = document.getElementById('newresults');
+
 function show(x) {
     if (x.classList.contains("hidden")) {
         x.classList.remove("hidden")
@@ -53,8 +45,7 @@ function results(x) {
     hide(time);
     let quiz = document.getElementById('quiz');
     hide(quiz);
-    let results = document.getElementById('results');
-    show(results);
+    show(newresults);
 }
 
 function countdown() {
@@ -156,45 +147,50 @@ clickHere.addEventListener("click", function () {
     }
 });
 
-//not called on yet
 function clearScores() {
     localStorage.clear();
+    listEl = document.querySelectorAll('li');
+    listEl.textContent = "";
+}
+
+function refreshPage() {
+    location.reload();
 }
 
 let initialsInput = document.querySelector("#initials");
+let scores = [];
+let storedScores = [];
 
 function createHighscores() {
-    // create an object for the current score
-    const scores = {
-        initials: initialsInput.value.trim(),
-        score: scoreEl.textContent.trim()
-    };
+    let tallyEl = document.getElementById('tallyscore');
+    hide(tallyEl);
+    let correct = document.getElementById('correct');
+    let wrong = document.getElementById('wrong');
+    hide(correct);
+    hide(wrong);
+    hide(newresults);
 
     // pull any scores out of local storage if they are stored there
-    let storedScores = JSON.parse(localStorage.getItem(scores));
+    let storedScores = JSON.parse(localStorage.getItem("scores")) || [];
 
-    // if there are no scores in local storage, let the current score be known as storedScores
-    if (storedScores !== null) {
-        scores = storedScores;
-    }
-    //append current score to storedScores
-    else { storedScores.push(scores) };
+    // append current score to storedScores
+    scores.push({
+        initials: initialsInput.value.trim(),
+        score: scoreEl.textContent.trim()
+    });
+    storedScores.push(...scores);
 
-    console.log("The scores object array is " + storedScores);
+    // show and create highscores list
     let scoreBoard = document.getElementById('highscores');
     show(scoreBoard);
     let scoreList = document.getElementById('scoreList');
-    let n = storedScores.length;
-    console.log("the stored scores object array length is " + n);
-
-    for (let i = 0; i < n; i++) {
-        let score = storedScores[i].score;
-        let initials = storedScores[i].initials;
+    storedScores.forEach(scores => {
+        let score = scores.score;
+        let initials = scores.initials;
         let listItem = document.createElement('li');
         listItem.textContent = initials + " " + score;
-        // listItem.setAttribute("data-index", i);
         scoreList.appendChild(listItem);
-    }
+    });
 
     // send all scores to local storage 
     localStorage.setItem("scores", JSON.stringify(storedScores));
