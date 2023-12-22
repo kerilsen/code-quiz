@@ -31,13 +31,14 @@ At the end of the game, you are given your score (which is the remainder of the 
 
 Finally, you are given the option to submit your initials to the high score list. The high scores are stored in local storage and dynamically added for display to the user.
 
-![Screenshot of highscores list](assets/images/screenshot_highscores-list.png)
+![Screenshot of highscores list](assets/images/Screenshot_highscores-list.png)
 
 
 ## Credits
 
-Javascript & JQuery by Jon Duckett for the Ajax fetch
-AskBCS (Sebastian aka "salvarado") for a bug fix on the Highscores list
+* Javascript & JQuery by Jon Duckett for the Ajax fetch
+* AskBCS (Sebastian aka "salvarado") for a bug fix on the Highscores list
+* Quiz questions based on https://data-flair.training/blogs/javascript-quiz/
 
 ## License
 
